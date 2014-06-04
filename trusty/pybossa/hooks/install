@@ -15,6 +15,6 @@ pip install m2crypto
 pip install -r requirements.txt
 cp settings_local.py.tmpl settings_local.py
 cp alembic.ini.template alembic.ini
-psql -c "create user pybossa with createdb login password 'tester'" -U postgres
-createdb pybossa -O pybossa -U postgres
+sudo -u postgres psql -c "create user pybossa with createdb login password 'tester'"
+sudo -u postgres createdb pybossa -O pybossa
 python cli.py db_create
