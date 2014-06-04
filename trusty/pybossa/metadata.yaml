@@ -1,17 +1,14 @@
 name: pybossa
-summary: <Fill in summary here>
-maintainer: Marvin Reimer <Marvin.Reimer@macbox.local>
+summary: Open Source framework for making crowdsourcing projects
+maintainer: Marvin Reimer <therealmarv@gmail.com>
 description: |
-  <Multi-line description here>
+  PyBossa is an open source platform for crowd-sourcing online (volunteer)
+  assistance to perform tasks that require human cognition, knowledge or
+  intelligence (e.g. image classification, transcription, information location).
 categories:
-  - misc
+  - applications
 subordinate: false
 provides:
   provides-relation:
-    interface: interface-name
-requires:
-  requires-relation:
-    interface: interface-name
-peers:
-  peer-relation:
-    interface: interface-name
+    interface: http
+

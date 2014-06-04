@@ -5,4 +5,16 @@
 # failing to account for a debconf question on a dependency, or trying to pull
 # from github without installing git first.
 
-apt-get install -y pybossa
+# install dependencies
+apt-get install -y git postgresql-9.3 python-virtualenv postgresql-server-dev-9.3 python-dev swig libssl-dev libjpeg-dev redis-server
+
+# install pybossa
+git clone --recursive https://github.com/PyBossa/pybossa
+cd pybossa
+pip install m2crypto
+pip install -r requirements.txt
+cp settings_local.py.tmpl settings_local.py
+cp alembic.ini.template alembic.ini
+psql -c "create user pybossa with createdb login password 'tester'" -U postgres
+createdb pybossa -O pybossa -U postgres
+python cli.py db_create
