@@ -11,4 +11,3 @@ subordinate: false
 provides:
   provides-relation:
     interface: http
-
