@@ -74,6 +74,8 @@ Internally on the Virtualbox network Pybossa is reachable. If you want to see it
 ```
 sshuttle -r vagrant@localhost:2222 10.0.3.0/24
 ```
+`sshuttle` maybe asks for local sudo password.  
+If it asks for vagrant's password: `vagrant`
 
 Finally open your browser on port 5000 with the IP you got from `juju status`, e.g.:
 ```
