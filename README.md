@@ -88,6 +88,8 @@ http://10.0.3.89:5000
 - [ ] Integrate PGPool
 - [ ] Connect with HAProxy (should be easy according to docs)
 - [ ] Test charm for different environments
+  - [x] Test charm with local installation on Ubuntu (LXC)
+  - [ ] Test charm with MAAS
 
 
   [1]: https://juju.ubuntu.com/docs/config-vagrant.html
