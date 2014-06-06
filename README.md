@@ -7,7 +7,7 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
 
 ## Install instructions
 
-[Testing PyBossa charm with Vagrant (Windows, OS X, Linux)](INSTALL-Vagrant.md)
+[Install PyBossa charm with Juju & Vagrant (Windows, OS X, Linux)](INSTALL-Vagrant-trusty.md)
 
 ## TO DO:
 - [ ] Connect with PostgreSQL Charm
