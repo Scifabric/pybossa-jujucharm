@@ -36,7 +36,7 @@ Then start it with:
 vagrant up
 ```
 
-When this is successful (it takes some minutes) you should be able to see the Juju GUI on [http://127.0.0.1:6080]
+When this is successful (it takes some minutes) you should be able to see the Juju GUI on [http://127.0.0.1:6080](http://127.0.0.1:6080)
 
 ### Next we want to install PyBossa on Juju.
 
