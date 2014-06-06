@@ -23,15 +23,15 @@ juju switch local
 
 ### Install PyBossa charm
 
-For first time usage on Juju we need to bootstrap it:
-```
-juju bootstrap
-```
-
 Clone this repo:
 ```
 git clone https://github.com/PyBossa/pybossa-jujucharm.git
 cd pybossa-jujucharm
+```
+
+For first time usage on Juju we need to bootstrap it:
+```
+juju bootstrap
 ```
  
 and install our cloned pybossa charm with:
