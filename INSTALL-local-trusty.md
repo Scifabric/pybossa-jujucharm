@@ -60,6 +60,22 @@ Now get the internal IP of pybossa:
 juju status
 ```
 
+> it should show something like this with `agent-state: installed` and `public-address`:
+> ```
+> services:
+>   pybossa:
+>     charm: local:trusty/pybossa-0
+>     exposed: true
+>     units:
+>       pybossa/0:
+>         agent-state: installed
+>         agent-version: 1.18.4.1
+>         machine: "1"
+>         open-ports:
+>         - 5000/tcp
+>         public-address: 10.0.3.89
+> ```
+
 Finally open your browser on port 5000 with the IP you got from `juju status`, e.g.:
 ```
 http://10.0.3.89:5000
