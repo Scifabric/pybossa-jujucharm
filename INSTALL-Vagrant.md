@@ -1,6 +1,6 @@
 ## Testing PyBossa charm with Vagrant (Windows, OS X, Linux)
 
-### This guide is based on [Ubuntu's Juju Vagrant guide][1]. Follow this steps:
+### This guide is based on [Ubuntu's Juju Vagrant guide](https://juju.ubuntu.com/docs/config-vagrant.html). Follow this steps:
 
 Install `virtualbox`,`vagrant` & `sshuttle` depending on your OS.
 
@@ -36,7 +36,7 @@ Then start it with:
 vagrant up
 ```
 
-When this is successful (it takes some minutes) you should be able to see the Juju GUI on [http://127.0.0.1:6080][2]
+When this is successful (it takes some minutes) you should be able to see the Juju GUI on [http://127.0.0.1:6080]
 
 ### Next we want to install PyBossa on Juju.
 

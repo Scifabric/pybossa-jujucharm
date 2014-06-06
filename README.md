@@ -18,10 +18,6 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
   - [x] Test charm with local installation on Ubuntu (LXC)
   - [ ] Test charm with MAAS
 
-
-  [1]: https://juju.ubuntu.com/docs/config-vagrant.html
-  [2]: http://127.0.0.1:6080
-
 ## Copyright / License
 
 Copyright 2014 SF Isle of Man Limited. 
