@@ -11,8 +11,11 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
 * [Install PyBossa charm with local LXC container (Ubuntu only)](INSTALL-local-trusty.md)
 
 ## TO DO:
+- [x] Charm for Precise
 - [ ] Connect with PostgreSQL Charm
-- [ ] Charm for Precise
+- [ ] Connect with redis-master charm
+- [ ] Use nginx internally
+- [ ] Use Supervisor for running pybossa
 - [ ] Integrate PGPool
 - [ ] Connect with HAProxy (should be easy according to docs)
 - [ ] Test charm for different environments
