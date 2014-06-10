@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -eu
+
+# TODO: Map to port 80 or use a proxy like HAProxy
+open-port 5000/tcp

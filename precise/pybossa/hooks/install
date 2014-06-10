@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -xe
+
+# install dependencies
+juju-log "Install Ubuntu 12.04 packages"
+# TODO: Use Postgresql Charm and not internally!
+apt-get install -y git postgresql-9.1 python-virtualenv postgresql-server-dev-9.1 python-dev swig libssl-dev libjpeg-dev nginx
+# install latest redis server
+juju-log "Install latest redis"
+add-apt-repository ppa:chris-lea/redis-server -y
+apt-get update
+apt-get install redis-server
+# install pybossa itself
+juju-log "Clone PyBossa Git in home directory"
+cd ~
+git clone --recursive https://github.com/PyBossa/pybossa
+cd pybossa
+juju-log "Install Python dependencies"
+pip install -r requirements.txt
+juju-log "Use default settings for PyBossa"
+cp settings_local.py.tmpl settings_local.py
+cp alembic.ini.template alembic.ini
+juju-log "Create PyBossa database"
+sudo -u postgres psql -c "create user pybossa with createdb login password 'tester'"
+sudo -u postgres createdb pybossa -O pybossa
+python cli.py db_create
+juju-log "Install requirements for letting run PyBossa as a service"
+pip install supervisor
