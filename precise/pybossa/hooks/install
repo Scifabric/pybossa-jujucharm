@@ -5,12 +5,12 @@ set -xe
 # install dependencies
 juju-log "Install Ubuntu 12.04 packages"
 # TODO: Use Postgresql Charm and not internally!
-apt-get install -y git postgresql-9.1 python-virtualenv postgresql-server-dev-9.1 python-dev swig libssl-dev libjpeg-dev nginx
+apt-get install -y git-core postgresql-9.1 python-virtualenv postgresql-server-dev-9.1 python-dev swig libssl-dev libjpeg-dev nginx
 # install latest redis server
 juju-log "Install latest redis"
 add-apt-repository ppa:chris-lea/redis-server -y
 apt-get update
-apt-get install redis-server
+apt-get -y install redis-server
 # install pybossa itself
 juju-log "Clone PyBossa Git in home directory"
 cd ~
