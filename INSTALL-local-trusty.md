@@ -8,7 +8,7 @@ Install Juju on Ubuntu with this commands:
 ```
 sudo apt-add-repository ppa:juju/stable
 sudo apt-get update
-sudo apt-get install juju-local
+sudo apt-get install juju-local git-core
 ```
 
 Configure Juju for first time usage. All information and settings for Juju will be stored in your home `~/.juju` directory.
