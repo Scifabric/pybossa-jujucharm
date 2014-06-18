@@ -12,5 +12,5 @@ provides:
   provides-relation:
     interface: http
 requires:
-  database:
-    interface: postgresql
+  pgsql:
+    interface: pgsql
