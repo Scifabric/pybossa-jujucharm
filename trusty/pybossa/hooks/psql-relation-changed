@@ -34,9 +34,6 @@ db_dbdb=$database
 EOF
 
   juju-log "Creating PostgreSQL Database"
-  #cd /home/discourse/discourse
-  #sudo -u discourse -H bundle exec rake db:create RAILS_ENV="production"
-  # Had weird problems with the above, opting instead to just createdb
   set +e
   PGPASSWORD=$pass createdb -U $user -h $host $database
   created=$?
