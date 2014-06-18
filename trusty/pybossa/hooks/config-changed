@@ -1,6 +1,11 @@
 #!/bin/bash
 
-set -eu
+set -ex
+
+if [ ! -f ".psql" ]; then
+  juju-log "Waiting for a database"
+  exit 0
+fi
 
 # TODO: Map to port 80 or use a proxy like HAProxy
 open-port 5000/tcp

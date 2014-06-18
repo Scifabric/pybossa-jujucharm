@@ -3,7 +3,13 @@
 # Note that currently this is run directly after install
 # i.e. 'service apache2 start'
 
-cd ~/pybossa
-redis-server contrib/sentinel.conf --sentinel
-export PYBOSSA_REDIS_CACHE_DISABLED='1'
-python run.py
+if [ ! -f ".psql" ]; then
+  juju-log "Trying to (re)start pybossa"
+  cd ~/pybossa
+  redis-server contrib/sentinel.conf --sentinel
+  export PYBOSSA_REDIS_CACHE_DISABLED='1'
+  killall python
+  nohup python run.py & 
+else
+  juju-log "No database set up yet, waiting."
+fi
