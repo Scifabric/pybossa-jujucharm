@@ -5,7 +5,7 @@ set -xe
 # install dependencies
 juju-log "Install Ubuntu 14.04 packages"
 # TODO: Use Postgresql Charm and not internally!
-apt-get install -y git python-virtualenv python-dev swig libssl-dev libjpeg-dev redis-server nginx
+apt-get install -y git python-virtualenv libpq-dev python-dev swig libssl-dev libjpeg-dev redis-server nginx
 # install pybossa itself
 juju-log "Clone PyBossa Git in home directory"
 cd ~
