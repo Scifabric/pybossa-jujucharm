@@ -20,8 +20,10 @@ if [ -z "$user" ] || [ -z "$host" ]; then
   exit 0
 fi
 
+cd ~/pybossa
+
 # replace connection details to PostgreSQL
-sed -i "s/SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI = 'postgresql:\/\/$user:$pass@$host:$port\/$database'/" /pybossa/settings_local.py
+sed -i "s/SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI = 'postgresql:\/\/$user:$pass@$host:$port\/$database'/" ~/pybossa/settings_local.py
 
 if [ ! -f ".psql" ]; then
   cat > .psql <<EOF

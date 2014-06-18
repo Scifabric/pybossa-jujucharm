@@ -2,6 +2,8 @@
 
 set -ex
 
+cd ~/pybossa
+
 if [ ! -f ".psql" ]; then
   juju-log "Waiting for a database"
   exit 0
