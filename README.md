@@ -14,12 +14,12 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
 
 ## TO DO:
 - [x] Charm for Precise
-- [ ] Connect with PostgreSQL Charm
+- [x] Connect with HAProxy
+- [ ] Connect with PostgreSQL charm
 - [ ] Connect with redis-master charm
 - [ ] Use nginx internally
 - [ ] Use Supervisor for running pybossa
 - [ ] Integrate PGPool
-- [x] Connect with HAProxy (should be easy according to docs)
 
 ## Roadmap
 
