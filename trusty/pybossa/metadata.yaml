@@ -9,7 +9,7 @@ categories:
   - applications
 subordinate: false
 provides:
-  provides-relation:
+  website:
     interface: http
 requires:
   pgsql:
