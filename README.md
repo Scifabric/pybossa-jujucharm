@@ -15,6 +15,7 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
 ## TO DO:
 - [x] Charm for Precise
 - [x] Connect with HAProxy
+- [ ] Submit charm to jujucharms.com when ready
 - [ ] Connect with PostgreSQL charm
 - [ ] Connect with redis-master charm
 - [ ] Use nginx internally
