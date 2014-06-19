@@ -3,6 +3,8 @@ pybossa-jujucharm
 
 Juju Charm for PyBossa
 
+![PyBossa Charm](http://i.imgur.com/5cqgQRQ.jpg)
+
 This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagrant)!
 
 ## Install instructions
@@ -17,10 +19,18 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
 - [ ] Use nginx internally
 - [ ] Use Supervisor for running pybossa
 - [ ] Integrate PGPool
-- [ ] Connect with HAProxy (should be easy according to docs)
-- [ ] Test charm for different environments
-  - [x] Test charm with local installation on Ubuntu (LXC)
-  - [ ] Test charm with MAAS
+- [x] Connect with HAProxy (should be easy according to docs)
+
+## Roadmap
+
+We will duplicate our production environment which is visible on
+[crowdcrafting.org](http://crowdcrafting.org) with HAProxy, Redis, PostgreSQL
+and more than one PyBossa instance for instant production deployment based on
+Juju and the cloud. More connections to other charms will follow!
+
+Next small step is currently PostgreSQL:
+
+![Example of PostgreSQL and PyBossa](http://i.imgur.com/8Yb6Jfa.jpg)
 
 ## Copyright / License
 

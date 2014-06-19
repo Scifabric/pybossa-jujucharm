@@ -80,3 +80,26 @@ Finally open your browser on port 5000 with the IP you got from `juju status`, e
 ```
 http://10.0.3.89:5000
 ```
+
+### HAProxy (optional)
+
+Instead of exposing PyBossa directly it is also possible to use a load balancer
+like HAProxy in front which will enable to run more than one PyBossa instance
+when DB connections are ready.
+
+Deploy HAProxy and connect it to the PyBossa instance:
+```
+juju deploy haproxy
+juju add-relation haproxy pybossa
+juju expose haproxy
+```
+
+Wait till HAProxy is exposed (you should see an ip here of haproxy):
+```
+juju status
+```
+
+and open your browser normally (port 80) with the IP you've got from `juju status`, e.g.:
+```
+http://10.0.3.89
+```
