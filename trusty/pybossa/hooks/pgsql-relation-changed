@@ -3,11 +3,11 @@
 set -ex
 
 charm_dir=`pwd`
-relation-set database="${JUJU_UNIT_NAME%%/*}" # In the :db relation of psql needed this, we're db-admin now.
+relation-set database="pybossa" # In the :db relation of psql needed this, we're db-admin now.
 
 juju-log "Sent things over the wire, wait for response."
 
-database="${JUJU_UNIT_NAME%%/*}"
+database="pybossa"
 user=`relation-get user`
 pass=`relation-get password`
 host=`relation-get host`
@@ -24,6 +24,7 @@ cd ~/pybossa
 
 # replace connection details to PostgreSQL
 sed -i "s/SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI = 'postgresql:\/\/$user:$pass@$host:$port\/$database'/" ~/pybossa/settings_local.py
+sed -i "s/sqlalchemy\.url.*/sqlalchemy\.url = postgresql:\/\/$user:$pass@$host:$port\/$database/" ~/pybossa/alembic.ini
 
 if [ ! -f ".psql" ]; then
   cat > .psql <<EOF
@@ -44,6 +45,7 @@ EOF
     # We can just ASSUME that it was created already and hope postgresql
     # isn't broken...
     juju-log "Database already exists, yay, opening ports"
+    cd $charm_dir
     #open-port 80/tcp
     hooks/config-changed
     hooks/start

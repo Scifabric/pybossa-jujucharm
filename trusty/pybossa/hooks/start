@@ -10,6 +10,7 @@ if [ -f ".psql" ]; then
   export PYBOSSA_REDIS_CACHE_DISABLED='1'
   killall python
   nohup python run.py & 
+  juju-log "Pybossa should be running now on port 5000 internally"
 else
   juju-log "No database set up yet, waiting."
 fi
