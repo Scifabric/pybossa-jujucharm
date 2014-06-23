@@ -48,29 +48,47 @@ and install our cloned pybossa charm with:
 ```
 juju deploy --repository=/vagrant local:trusty/pybossa
 ```
-you can watch progress of installation (for debugging):
+> you can watch progress of installation (for debugging):
+> ```
+> tail -f /var/log/juju-vagrant-local/unit-pybossa-0.log
+> ```
+
+### PostgreSQL
+
+Install the PostgreSQL charm and connect PyBossa with the database:
 ```
-tail -f /var/log/juju-vagrant-local/unit-pybossa-0.log
+juju deploy postgresql
+juju add-relation pybossa postgresql:db-admin
 ```
 
-After pybossa is installed it only needs to be exposed so that it is reachable (can be done also by Juju GUI):
+### HAProxy
+
+HAProxy is a load balancer and necessary once more than one running PyBossa
+charm can connect to the DB (not supported yet).
+
+Deploy HAProxy and connect it to the PyBossa instance.
+Also expose it so that it is reachable from the outside.
 ```
-juju expose pybossa
+juju deploy haproxy
+juju add-relation haproxy pybossa
+juju expose haproxy
 ```
 
-Now get the internal IP of pybossa:
+Wait till HAProxy is exposed (you should see an ip here of haproxy):
 ```
 juju status
 ```
 
-Internally on the Virtualbox network Pybossa is reachable. If you want to see it on your local browser you need to redirect the VBox network with your network. The VBox is typically 10.0.3.xxx. Open a new console on your local machine and type:
+### sshuttle
+
+The Virtualbox network is only internally visible on the VM side. If you want to see it on your local browser you need to redirect the VBox network with your network (make sure the 10.x.x.x is not already used!). The VBox is typically 10.0.3.xxx. Open a new console on your local machine and type:
 ```
 sshuttle -r vagrant@localhost:2222 10.0.3.0/24
 ```
 `sshuttle` maybe asks for local sudo password.  
 If it asks for vagrant's password: `vagrant`
 
-Finally open your browser on port 5000 with the IP you got from `juju status`, e.g.:
+Finally open your browser with the IP you got from `juju status` and HAProxy, e.g.:
 ```
-http://10.0.3.89:5000
+http://10.0.3.89
 ```

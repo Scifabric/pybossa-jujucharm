@@ -16,7 +16,7 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
 - [x] Charm for Precise
 - [x] Connect with HAProxy
 - [ ] Submit charm to jujucharms.com when ready
-- [ ] Connect with PostgreSQL charm
+- [x] Connect with PostgreSQL charm
 - [ ] Connect with redis-master charm
 - [ ] Use nginx internally
 - [ ] Use Supervisor for running pybossa
@@ -29,7 +29,7 @@ We will duplicate our production environment which is visible on
 and more than one PyBossa instance for instant production deployment based on
 Juju and the cloud. More connections to other charms will follow!
 
-Next small step is currently PostgreSQL:
+PyBossa with PostgreSQL connection:
 
 ![Example of PostgreSQL and PyBossa](http://i.imgur.com/8Yb6Jfa.jpg)
 

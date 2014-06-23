@@ -40,52 +40,28 @@ juju deploy local:trusty/pybossa
 ```
 
 > **Note:** Installation for the pybossa charm can take a while (some minutes) because Juju is deploying a new LXC machine and is installing PyBossa's Juju charm.
-
-You can watch progress of installation in the logs which are in directory `~/.juju/local/log`. Example:
-```
-tail -f ~/.juju/local/log/unit-pybossa-0.log
-```
-or
-```
-juju status
-```
-
-After pybossa is installed it only needs to be exposed so that it is reachable:
-```
-juju expose pybossa
-```
-
-Now get the internal IP of pybossa:
-```
-juju status
-```
-
-> it should show something like this with `agent-state: installed` and `public-address`:
+>
+> You can watch progress of installation in the logs which are in directory `~/.juju/local/log`. Example:
 > ```
-> services:
->   pybossa:
->     charm: local:trusty/pybossa-0
->     exposed: true
->     units:
->       pybossa/0:
->         agent-state: installed
->         agent-version: 1.18.4.1
->         machine: "1"
->         open-ports:
->         - 5000/tcp
->         public-address: 10.0.3.89
+> tail -f ~/.juju/local/log/unit-pybossa-0.log
+> ```
+> or
+> ```
+> juju status
 > ```
 
-Finally open your browser on port 5000 with the IP you got from `juju status`, e.g.:
+### PostgreSQL
+
+Install the PostgreSQL charm and connect PyBossa with the database:
 ```
-http://10.0.3.89:5000
+juju deploy postgresql
+juju add-relation pybossa postgresql:db-admin
 ```
 
-### HAProxy (optional)
+### HAProxy
 
-Instead of exposing PyBossa directly it is also possible to use a load balancer
-like HAProxy in front which will enable to run more than one PyBossa instance
-when DB connections are ready.
+HAProxy is a load balancer and necessary once more than one running PyBossa
+charm can connect to the DB (not supported yet).
 
 Deploy HAProxy and connect it to the PyBossa instance:
 ```
