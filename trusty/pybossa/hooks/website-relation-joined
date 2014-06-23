@@ -6,6 +6,6 @@ relation-set "port=5000"
 
 # Set an optional service name, allowing more config-based
 # customization
-#relation-set "service_name=pybossa"
+# relation-set "service_name=pybossa"
 
 juju-log "PyBossa HTTP relation is set!"
