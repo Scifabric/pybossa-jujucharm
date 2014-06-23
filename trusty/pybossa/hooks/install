@@ -17,4 +17,4 @@ juju-log "Use default settings for PyBossa"
 cp settings_local.py.tmpl settings_local.py
 cp alembic.ini.template alembic.ini
 juju-log "Install requirements for letting run PyBossa as a service"
-pip install supervisor
+pip install supervisor uwsgi
