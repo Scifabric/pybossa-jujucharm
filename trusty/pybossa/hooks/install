@@ -5,7 +5,7 @@ set -xe
 # install dependencies
 juju-log "Install Ubuntu 14.04 packages"
 # TODO: Use Postgresql Charm and not internally!
-apt-get install -y git python-virtualenv libpq-dev postgresql-client python-dev swig libssl-dev libjpeg-dev redis-server nginx
+apt-get install -y git python-virtualenv libpq-dev postgresql-client python-dev swig libssl-dev libjpeg-dev redis-server nginx supervisor
 # install pybossa itself
 juju-log "Clone PyBossa Git in home directory"
 cd ~
@@ -17,4 +17,73 @@ juju-log "Use default settings for PyBossa"
 cp settings_local.py.tmpl settings_local.py
 cp alembic.ini.template alembic.ini
 juju-log "Install requirements for letting run PyBossa as a service"
-pip install supervisor uwsgi
+pip install uwsgi
+# write uwsgi configuration
+cat > /root/pybossa/pybossa.ini <<EOF
+[uwsgi]
+socket = /tmp/pybossa.sock
+chmod-socket = 666
+chdir = /root/pybossa
+pythonpath = ..
+module = run:app
+cpu-affinity = 1
+processes = 2
+threads = 2
+listen = 2048
+stats = /tmp/pybossa-stats.sock
+buffer-size = 65535
+EOF
+# write nginx configuration
+cat > /etc/nginx/sites-available/pybossa <<EOF
+server {
+    listen      localhost:8080;
+    server_name  _;
+    large_client_header_buffers 4 32k;
+    real_ip_header X-Forwarded-For;
+    root /root/pybossa;
+    client_max_body_size 5M;
+
+if (-f /root/pybossa/503.html) {
+    return 503;
+}
+
+error_page 503 @maintenance;
+
+location / { try_files $uri @pybossa; }
+
+location @pybossa {
+    include uwsgi_params;
+    uwsgi_pass unix:/tmp/pybossa.sock;
+}
+
+location  /static {
+            alias /home/pybossa/pybossa/pybossa/themes/default/static;
+            autoindex on;
+            expires max;
+        }
+
+error_page 503 @maintenance;
+
+location @maintenance {
+    if ($uri !~ ^/static/) {
+          rewrite ^(.*)$ /503.html break;
+        }
+}
+
+}
+EOF
+ln -s /etc/nginx/sites-available/pybossa /etc/nginx/sites-enabled/pybossa 
+# write supervisor configuration
+cat > /etc/supervisor/conf.d/pybossa.conf <<EOF
+[program:pybossa]
+command=/usr/local/bin/uwsgi /root/pybossa/pybossa.ini
+directory=/root/pybossa
+autostart=true
+autorestart=true
+user=pybossa
+log_stdout=true
+log_stderr=true
+logfile=/var/log/pybossa.log
+logfile_maxbytes=10MB
+logfile_backups=2
+EOF

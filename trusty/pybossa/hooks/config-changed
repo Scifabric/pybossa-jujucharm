@@ -9,5 +9,4 @@ if [ ! -f ".psql" ]; then
   exit 0
 fi
 
-# TODO: Map to port 80 or use a proxy like HAProxy
-open-port 5000/tcp
+supervisorctl restart pybossa || supervisorctl start pybossa
