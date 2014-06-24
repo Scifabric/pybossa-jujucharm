@@ -8,8 +8,7 @@ if [ -f ".psql" ]; then
   juju-log "Trying to (re)start pybossa"
   redis-server contrib/sentinel.conf --sentinel
   export PYBOSSA_REDIS_CACHE_DISABLED='1'
-  supervisorctl start pybossa
-  supervisorctl restart pybossa
+  supervisorctl restart pybossa || supervisorctl start pybossa
   juju-log "Pybossa should be running now on port 5000 internally"
 else
   juju-log "No database set up yet, waiting."
