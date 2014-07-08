@@ -34,7 +34,7 @@ stats = /tmp/pybossa-stats.sock
 buffer-size = 65535
 EOF
 # write nginx configuration
-cat > /etc/nginx/sites-available/pybossa <<EOF
+cat > /etc/nginx/sites-available/pybossa <<'EOF'
 server {
     listen      localhost:8080;
     server_name  _;
