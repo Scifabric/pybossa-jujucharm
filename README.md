@@ -5,7 +5,7 @@ Juju Charm for PyBossa
 
 ![PyBossa Charm](http://i.imgur.com/5cqgQRQ.jpg)
 
-This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagrant)!
+This is **alpha** and currently only tested with Ubuntu 14.04 (local & Vagrant)!
 
 ## Install instructions
 
