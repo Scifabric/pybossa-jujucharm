@@ -18,8 +18,8 @@ This is **pre alpha** and currently only tested with Ubuntu 14.04 (local & Vagra
 - [ ] Submit charm to jujucharms.com when ready
 - [x] Connect with PostgreSQL charm
 - [ ] Connect with redis-master charm
-- [ ] Use nginx internally
-- [ ] Use Supervisor for running pybossa
+- [x] Use nginx internally
+- [x] Use supervisor for running pybossa
 - [ ] Integrate PGPool
 
 ## Roadmap
