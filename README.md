@@ -31,7 +31,7 @@ Juju and the cloud. More connections to other charms will follow!
 
 PyBossa with PostgreSQL and HAPRoxy connection:
 
-![Example of PostgreSQL,PyBossa,HAProxy](http://i.imgur.com/fZ3DjfB.png)
+![Example of PostgreSQL,PyBossa,HAProxy](http://i.imgur.com/FqqX3bB.png)
 
 ## Copyright / License
 
