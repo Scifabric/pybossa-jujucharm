@@ -29,7 +29,7 @@ We will duplicate our production environment which is visible on
 and more than one PyBossa instance for instant production deployment based on
 Juju and the cloud. More connections to other charms will follow!
 
-PyBossa with PostgreSQL and HAPRoxy connection:
+PyBossa with PostgreSQL and HAProxy connection:
 
 ![Example of PostgreSQL,PyBossa,HAProxy](http://i.imgur.com/FqqX3bB.png)
 
