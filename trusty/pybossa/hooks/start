@@ -3,7 +3,7 @@
 # Note that currently this is run directly after install
 # i.e. 'service apache2 start'
 
-cd ~/pybossa
+cd /var/www/pybossa
 if [ -f ".psql" ]; then
   juju-log "Trying to (re)start pybossa"
   redis-server contrib/sentinel.conf --sentinel

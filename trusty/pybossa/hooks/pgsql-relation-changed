@@ -20,11 +20,11 @@ if [ -z "$user" ] || [ -z "$host" ]; then
   exit 0
 fi
 
-cd ~/pybossa
+cd /var/www/pybossa
 
 # replace connection details to PostgreSQL
-sed -i "s/SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI = 'postgresql:\/\/$user:$pass@$host:$port\/$database'/" ~/pybossa/settings_local.py
-sed -i "s/sqlalchemy\.url.*/sqlalchemy\.url = postgresql:\/\/$user:$pass@$host:$port\/$database/" ~/pybossa/alembic.ini
+sed -i "s/SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI = 'postgresql:\/\/$user:$pass@$host:$port\/$database'/" /var/www/pybossa/settings_local.py
+sed -i "s/sqlalchemy\.url.*/sqlalchemy\.url = postgresql:\/\/$user:$pass@$host:$port\/$database/" /var/www/pybossa/alembic.ini
 
 if [ ! -f ".psql" ]; then
   cat > .psql <<EOF
@@ -51,13 +51,14 @@ EOF
     hooks/start
     exit 0
   fi
+
+  cd /var/www/pybossa
+
+  python cli.py db_create
+
+  juju-log "Database set up"
+
 fi
-
-cd ~/pybossa
-
-python cli.py db_create
-
-juju-log "Database set up"
 
 cd $charm_dir
 
