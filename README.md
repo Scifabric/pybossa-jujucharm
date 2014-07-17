@@ -20,7 +20,6 @@ This is **alpha** software and currently only tested with LXC and Vagrant (Ubunt
 - [ ] Connect with redis-master charm
 - [x] Use nginx internally
 - [x] Use supervisor for running pybossa
-- [ ] Integrate PGPool
 
 ## Roadmap
 
