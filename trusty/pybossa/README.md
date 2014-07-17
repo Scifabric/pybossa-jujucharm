@@ -71,7 +71,7 @@ Report any bug, issue or improvement here: [GitHub Charm issues](https://github.
 
 ### [PyBossa webpage](http://pybossa.com)
 
-You can read more about the architecture in the [PyBossa Documentation](http://docs.pybossa.com/en/latest/overview.html) and follow the [step-by-step tutorial to create your own projects}(http://docs.pybossa.com/en/latest/build_with_pybossa.html).
+You can read more about the architecture in the [PyBossa Documentation](http://docs.pybossa.com/en/latest/overview.html) and follow the [step-by-step tutorial to create your own projects](http://docs.pybossa.com/en/latest/build_with_pybossa.html).
 
 For more info, send us an e-mail to: info@pybossa.com or follow us on [Twitter](https://twitter.com/pybossa)!
 
