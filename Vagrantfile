@@ -122,7 +122,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.validation_client_name = "ORGNAME-validator"
 
   # Install specific tools for running LXC
-  Vagrant::Config.run do |config|
-    config.vm.provision :shell, :path => "vagrant.sh"
-  end
+  config.vm.provision "shell", path: "vagrant.sh"
 end
