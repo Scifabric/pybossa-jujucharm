@@ -15,7 +15,7 @@ This is **alpha** software and currently only tested with LXC and Vagrant (Ubunt
 ## TO DO:
 - [x] Charm for Precise
 - [x] Connect with HAProxy
-- [ ] Submit charm to jujucharms.com when ready
+- [x] Submit charm to jujucharms.com when ready
 - [x] Connect with PostgreSQL charm
 - [ ] Connect with redis-master charm
 - [x] Use nginx internally
