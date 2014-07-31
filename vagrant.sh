@@ -3,7 +3,7 @@
 set -ex
 
 sudo apt-get update -y
-sudo apt-get install -y juju-local git-core python3-pip
+sudo apt-get install -y juju-local git-core
 
 NATGUI="/home/vagrant/natgui.sh"
 NATPYBOSSA="/home/vagrant/natpybossa.sh"
