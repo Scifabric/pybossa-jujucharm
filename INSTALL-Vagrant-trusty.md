@@ -1,57 +1,107 @@
 ## Testing PyBossa charm with Vagrant (Windows, OS X, Linux)
 
-### This guide is based on [Ubuntu's Juju Vagrant guide](https://juju.ubuntu.com/docs/config-vagrant.html). Follow this steps:
+With this guide you can test the PyBossa Juju charm inside a Virtualbox VM.
 
-Install `virtualbox`,`vagrant` & `sshuttle` depending on your OS.
+### Follow this steps:
+
+#### Install Virtualbox & Vagrant
 
 > Ubuntu example:
 > ```
 > sudo apt-get update 
-> sudo apt-get -y install virtualbox vagrant sshuttle
+> sudo apt-get -y install virtualbox vagrant
 > ```
 
-> OS X example:
+> Windows & OS X example:
 >
-> * install virtualbox and vagrant manually by visiting their websites
-> * install sshuttle with Homebrew `brew install sshuttle`. First usage requires maybe a reboot.
+> Install and download [Virtualbox](https://www.virtualbox.org) and [Vagrant](http://www.vagrantup.com) manually.
 
-Clone this repo:
+#### Get the source code
+
+If you have not git installed you can simply download and extract a ZIP file of the source `https://github.com/PyBossa/pybossa-jujucharm/archive/master.zip` and extract it.
+
+Or you use git to clone it:
 ```
 git clone https://github.com/PyBossa/pybossa-jujucharm.git
+```
+
+Go the source code folder
+```
 cd pybossa-jujucharm
 ```
  
-Create a PyBossa Vagrant Virtualbox based on Ubuntu 14.04 Trusty:
-```
-vagrant box add JujuBox http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-juju-vagrant-disk1.box
-```
- 
-Initialize this environment by running:
-```
-vagrant init JujuBox
-```
+#### Start the VM
 
-Then start it with:
+This is very easy:
 ```
 vagrant up
 ```
 
-When this is successful (it takes some minutes) you should be able to see the Juju GUI on [http://127.0.0.1:6080](http://127.0.0.1:6080)
+#### Setup Juju
 
-### Next we want to install PyBossa on Juju.
-
-So we ssh into the vagrant box by:
+SSH to the Vagrant box and **stay** in the VM
 ```
 vagrant ssh
 ```
-and install our cloned pybossa charm with:
+
+Prepare Juju for initial usage:
 ```
-juju deploy --repository=/vagrant local:trusty/pybossa
+juju init
+juju switch local
+juju bootstrap
 ```
-> you can watch progress of installation (for debugging):
+> What do this juju commands do?
+> * Generate config files for Juju
+> * Switch Juju to local usage (LXC)
+> * Bootstrap Juju so that it is ready to use
+
+#### Setup Juju GUI (optional)
+
+```
+juju deploy juju-gui
+```
+
+wait till juju-gui is deployed by Juju (can take some time):
+```
+juju status
+```
+copy&paste the ip and setup IP Routing (NAT) with this command:
+```
+sudo ./natgui.sh 10.0.3.x
+```
+which will map the Juju-GUI to your localhost's port 8000.  
+You can now view Juju-GUI in your browser:  
+[https://localhost:8000](https://localhost:8000)
+
+#### Setup PyBossa
+
+We need git clone the PyBossa repo inside the VM with
+```
+git clone https://github.com/PyBossa/pybossa-jujucharm.git
+cd pybossa-jujucharm
+```
+and deploy it with juju:
+```
+juju deploy local:trusty/pybossa
+cd ..
+```
+
+> You can watch progress of installation in detail (for debugging):
 > ```
 > tail -f /var/log/juju-vagrant-local/unit-pybossa-0.log
 > ```
+
+wait till pybossa is deployed and you see an public ip on
+```
+juju status
+```
+copy&paste the ip and setup IP Routing (NAT) with this command:
+```
+sudo ./natpybossa.sh 10.0.3.x
+```
+which will map the Juju-GUI to your localhost's port 7000.  
+You can now view PyBossa in your browser:  
+[https://localhost:7000](https://localhost:7000) 
 
 ### PostgreSQL
 
@@ -61,7 +111,7 @@ juju deploy postgresql
 juju add-relation pybossa postgresql:db-admin
 ```
 
-### HAProxy
+### HAProxy (optional)
 
 HAProxy is a load balancer and necessary once more than one running PyBossa
 charm can connect to the DB (not supported yet).
@@ -74,12 +124,19 @@ juju add-relation haproxy pybossa
 juju expose haproxy
 ```
 
-Wait till HAProxy is exposed (you should see an ip here of haproxy):
+Wait till HAProxy IP is visible:
 ```
 juju status
 ```
+copy&paste the ip and setup IP Routing (NAT) with this command:
+```
+sudo ./natpybossa.sh 10.0.3.x
+```
+which will map the HAProxy to your localhost's port 7001.  
+You can now view HAProxy in front of PyBossa in your browser:  
+[https://localhost:7001](https://localhost:7001)
 
-### sshuttle
+### sshuttle whole network mapping (optional)
 
 The Virtualbox network is only internally visible on the VM side. If you want to see it on your local browser you need to redirect the VBox network with your network (make sure the 10.x.x.x is not already used!). The VBox is typically 10.0.3.xxx. Open a new console on your local machine and type:
 ```
