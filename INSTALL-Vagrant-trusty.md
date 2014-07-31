@@ -70,16 +70,14 @@ wait till juju-gui is deployed (can take some time):
 ```
 juju status
 ```
-Remember or copy & paste the IP.
-
-You need the IP here:
+copy&paste the ip here:
 ```
 sudo ./natgui.sh 10.0.3.x
 ```
 which will map the Juju-GUI to your localhost's port 8000. 
 
 You can now view Juju-GUI in your browser:  
-https://localhost:8000
+[https://localhost:8000]
 
 #### Setup PyBossa
 
