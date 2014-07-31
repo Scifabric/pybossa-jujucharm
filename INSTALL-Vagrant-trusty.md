@@ -3,7 +3,7 @@
 With this guide you can test the PyBossa Juju charm inside a Virtualbox VM.
 This should work on all supported OSes where Vagrant and Virtualbox runs (Windows, OS X, Ubuntu).
 
-### Follow this steps:
+### Follow these steps:
 
 #### Install Virtualbox & Vagrant
 
