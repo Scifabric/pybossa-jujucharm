@@ -1,11 +1,13 @@
 ## Testing PyBossa charm with Vagrant
 
-With this guide you can test the PyBossa Juju charm inside a Virtualbox VM.
+With this guide you can test the PyBossa Juju charm inside a Virtualbox VM. Vagrant will help us to setup a new VM.
 This should work on all supported OSes where Vagrant and Virtualbox runs (Windows, OS X, Ubuntu).
 
 ### Follow these steps:
 
 #### Install Virtualbox & Vagrant
+
+Install Vagrant and Virtualbox if they are not available on your machine.
 
 > Ubuntu example:
 > ```
@@ -81,15 +83,9 @@ You can now view Juju-GUI in your browser:
 
 #### Setup PyBossa
 
-We need git clone the PyBossa repo inside the VM with
+Now we deploy PyBossa directly from git:
 ```
-git clone https://github.com/PyBossa/pybossa-jujucharm.git
-cd pybossa-jujucharm
-```
-and deploy it with juju:
-```
-juju deploy local:trusty/pybossa
-cd ..
+juju git-deploy github.com/PyBossa/pybossa-jujucharm
 ```
 
 > You can watch progress of installation in detail (for debugging):
