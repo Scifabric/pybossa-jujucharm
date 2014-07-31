@@ -50,9 +50,9 @@ else
       if [ $? -eq 0 ] ; then
         echo Warning: IP is already forwarded. Showing only Juju password.
       else
-        iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination "$ip":443
+        iptables -t nat -A PREROUTING -p tcp --dport 8000 -j DNAT --to-destination "$ip":443
         if [ $? -eq 0 ] ; then
-          echo SUCCESS: Mapped "$ip" port 443 to local port 443.
+          echo SUCCESS: Mapped "$ip" port 443 to local port 8000.
         else
           echo ERROR: Something went wrong with iptables command :(
         fi
