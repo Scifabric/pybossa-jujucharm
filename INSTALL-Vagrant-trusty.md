@@ -1,7 +1,7 @@
 ## Testing PyBossa charm with Vagrant
 
 With this guide you can test the PyBossa Juju charm inside a Virtualbox VM.
-This should work on all supported OSes where Vagrant and Virtualbox runs (Windows, OS X, Ubuntu)
+This should work on all supported OSes where Vagrant and Virtualbox runs (Windows, OS X, Ubuntu).
 
 ### Follow this steps:
 
@@ -20,7 +20,7 @@ This should work on all supported OSes where Vagrant and Virtualbox runs (Window
 #### Get the source code
 
 If you do not have git installed you can simply download and extract a ZIP file of the source  
-`https://github.com/PyBossa/pybossa-jujucharm/archive/master.zip` and extract it.
+[https://github.com/PyBossa/pybossa-jujucharm/archive/master.zip] and extract it.
 
 Or you use git to clone it:
 ```
