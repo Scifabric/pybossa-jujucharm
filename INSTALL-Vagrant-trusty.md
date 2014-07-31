@@ -1,6 +1,7 @@
-## Testing PyBossa charm with Vagrant (Windows, OS X, Linux)
+## Testing PyBossa charm with Vagrant
 
 With this guide you can test the PyBossa Juju charm inside a Virtualbox VM.
+This should work on all supported OSes where Vagrant and Virtualbox runs (Windows, OS X, Ubuntu)
 
 ### Follow this steps:
 
@@ -18,7 +19,8 @@ With this guide you can test the PyBossa Juju charm inside a Virtualbox VM.
 
 #### Get the source code
 
-If you have not git installed you can simply download and extract a ZIP file of the source `https://github.com/PyBossa/pybossa-jujucharm/archive/master.zip` and extract it.
+If you do not have git installed you can simply download and extract a ZIP file of the source  
+`https://github.com/PyBossa/pybossa-jujucharm/archive/master.zip` and extract it.
 
 Or you use git to clone it:
 ```
@@ -50,7 +52,7 @@ juju init
 juju switch local
 juju bootstrap
 ```
-> What do this juju commands do?
+> Explanation of the commands:
 > * Generate config files for Juju
 > * Switch Juju to local usage (LXC)
 > * Bootstrap Juju so that it is ready to use
@@ -61,15 +63,21 @@ juju bootstrap
 juju deploy juju-gui
 ```
 
-wait till juju-gui is deployed by Juju (can take some time):
+> This will setup a new Linux container (LXC) with its own network and resources.
+> So you can say this will make a VM in a VM ;)
+
+wait till juju-gui is deployed (can take some time):
 ```
 juju status
 ```
-copy&paste the ip and setup IP Routing (NAT) with this command:
+Remember or copy & paste the IP.
+
+You need the IP here:
 ```
 sudo ./natgui.sh 10.0.3.x
 ```
-which will map the Juju-GUI to your localhost's port 8000.  
+which will map the Juju-GUI to your localhost's port 8000. 
+
 You can now view Juju-GUI in your browser:  
 [https://localhost:8000](https://localhost:8000)
 
@@ -95,11 +103,12 @@ wait till pybossa is deployed and you see an public ip on
 ```
 juju status
 ```
-copy&paste the ip and setup IP Routing (NAT) with this command:
+copy&paste the ip here:
 ```
 sudo ./natpybossa.sh 10.0.3.x
 ```
-which will map the Juju-GUI to your localhost's port 7000.  
+which will map the Juju-GUI to your localhost's port 7000.
+
 You can now view PyBossa in your browser:  
 [https://localhost:7000](https://localhost:7000) 
 
@@ -128,7 +137,7 @@ Wait till HAProxy IP is visible:
 ```
 juju status
 ```
-copy&paste the ip and setup IP Routing (NAT) with this command:
+copy&paste the ip here:
 ```
 sudo ./natpybossa.sh 10.0.3.x
 ```
