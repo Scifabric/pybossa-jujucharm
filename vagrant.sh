@@ -179,3 +179,4 @@ EOF
 chmod +x "$NATGUI"
 chmod +x "$NATPYBOSSA"
 chmod +x "$NATHAPROXY"
+echo "Finished Vagrant install!"
