@@ -3,7 +3,7 @@
 set -ex
 
 sudo apt-get update -y
-sudo apt-get install -y juju-local git-core
+sudo apt-get install -y juju-local git-core python3-pip
 
 NATGUI="/home/vagrant/natgui.sh"
 NATPYBOSSA="/home/vagrant/natpybossa.sh"
@@ -54,7 +54,7 @@ else
         if [ $? -eq 0 ] ; then
           echo SUCCESS: Mapped "$ip" port 443 to local port 8000.
         else
-          echo ERROR: Something went wrong with iptables command :(
+          echo "ERROR: Something went wrong with iptables command :("
         fi
       fi
     fi
@@ -111,7 +111,7 @@ else
         if [ $? -eq 0 ] ; then
           echo SUCCESS: Mapped "$ip" port 8080 from PyBossa to local port 7000.
         else
-          echo ERROR: Something went wrong with iptables command :(
+          echo "ERROR: Something went wrong with iptables command :("
         fi
       fi
     fi
@@ -165,7 +165,7 @@ else
         if [ $? -eq 0 ] ; then
           echo SUCCESS: Mapped "$ip" port 80 from HAProxy to local port 7001.
         else
-          echo ERROR: Something went wrong with iptables command :(
+          echo "ERROR: Something went wrong with iptables command :("
         fi
       fi
     fi
