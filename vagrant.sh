@@ -15,7 +15,7 @@ cat > "$NATGUI" <<'EOF'
 
 ROOT_UID="0"
 
-#Check if run as root
+# Check if run as root
 if [ "$UID" -ne "$ROOT_UID" ] ; then
         echo "Use this command with sudo (root)!"
         exit 1
@@ -72,10 +72,19 @@ cat > "$NATPYBOSSA" <<'EOF'
 
 ROOT_UID="0"
 
-#Check if run as root
+# Check if run as root
 if [ "$UID" -ne "$ROOT_UID" ] ; then
         echo "Use this command with sudo (root)!"
         exit 1
+fi
+
+JUJUSETTINGS="/home/vagrant/.juju/environments/local.jenv"
+
+# check if Juju is initialized
+if [ ! -f "$JUJUSETTINGS" ]
+then
+    echo ERROR: Is Juju initialized? No Juju configuration file found.
+    exit 1
 fi
 
 if [ $# -lt 1 ] ; then
@@ -117,10 +126,19 @@ cat > "$NATHAPROXY" <<'EOF'
 
 ROOT_UID="0"
 
-#Check if run as root
+# Check if run as root
 if [ "$UID" -ne "$ROOT_UID" ] ; then
         echo "Use this command with sudo (root)!"
         exit 1
+fi
+
+JUJUSETTINGS="/home/vagrant/.juju/environments/local.jenv"
+
+# check if Juju is initialized
+if [ ! -f "$JUJUSETTINGS" ]
+then
+    echo ERROR: Is Juju initialized? No Juju configuration file found.
+    exit 1
 fi
 
 if [ $# -lt 1 ] ; then
