@@ -59,7 +59,7 @@ juju bootstrap
 > * Switch Juju to local usage (LXC)
 > * Bootstrap Juju so that it is ready to use
 
-#### Setup Juju GUI (optional)
+### Juju GUI (optional)
 
 ```
 juju deploy juju-gui
@@ -68,11 +68,11 @@ juju deploy juju-gui
 > This will setup a new Linux container (LXC) with its own network and resources.
 > So you can say this will make a VM in a VM ;)
 
-wait till juju-gui is deployed (can take some time):
+wait till juju-gui is deployed and you see a public IP (can take some time):
 ```
 juju status
 ```
-copy&paste the ip here:
+copy&paste the IP here:
 ```
 sudo ./natgui.sh 10.0.3.x
 ```
@@ -81,7 +81,7 @@ which will map the Juju-GUI to your localhost's port 8000.
 You can now view Juju-GUI in your browser:  
 [https://localhost:8000](https://localhost:8000)
 
-#### Setup PyBossa
+### PyBossa
 
 Now we deploy PyBossa directly from git:
 ```
@@ -93,11 +93,11 @@ juju git-deploy github.com/PyBossa/pybossa-jujucharm
 > tail -f /var/log/juju-vagrant-local/unit-pybossa-0.log
 > ```
 
-wait till pybossa is deployed and you see an public ip on
+wait till pybossa is deployed and you see an public IP on
 ```
 juju status
 ```
-copy&paste the ip here:
+copy&paste the IP here:
 ```
 sudo ./natpybossa.sh 10.0.3.x
 ```
@@ -131,7 +131,7 @@ Wait till HAProxy IP is visible:
 ```
 juju status
 ```
-copy&paste the ip here:
+copy&paste the IP here:
 ```
 sudo ./natpybossa.sh 10.0.3.x
 ```
