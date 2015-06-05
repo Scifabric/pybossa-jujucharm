@@ -14,6 +14,7 @@ git clone --recursive https://github.com/PyBossa/pybossa
 cd pybossa
 juju-log "Install Python dependencies"
 pip install -U pip
+cd /var/www/pybossa
 pip install -r requirements.txt
 juju-log "Use default settings for PyBossa"
 cp settings_local.py.tmpl settings_local.py
