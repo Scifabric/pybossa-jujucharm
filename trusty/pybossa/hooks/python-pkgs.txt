@@ -1,0 +1,4 @@
+-e git+https://github.com/therealmarv/ansible-charm.git#egg=AnsibleCharm
+charmhelpers
+ansible
+path.py

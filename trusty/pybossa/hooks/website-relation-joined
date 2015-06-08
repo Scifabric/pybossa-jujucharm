@@ -1,7 +1,0 @@
-#!/bin/bash
-# for HAProxy
-
-relation-set "hostname=$(unit-get private-address)"
-relation-set "port=8080"
-
-juju-log "PyBossa HTTP relation is set!"

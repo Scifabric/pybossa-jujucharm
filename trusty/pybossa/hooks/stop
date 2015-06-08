@@ -1,2 +1,1 @@
-#!/bin/bash
-supervisorctl stop pybossa
+hooks.py
