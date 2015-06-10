@@ -5,7 +5,7 @@ import os
 
 
 def main(args=sys.argv):
-    hooks = AnsibleHooks(playbook_path='playbooks/site.yaml',
+    hooks = AnsibleHooks(playbook_path='playbooks/site.yml',
                          hook_dir=os.path.dirname(__file__),
                          default_hooks=['install'])
     hooks.execute(args)
