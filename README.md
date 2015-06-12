@@ -12,14 +12,9 @@ This is **alpha** software and currently only tested with LXC and Vagrant (Ubunt
 * [Install PyBossa charm with Juju & Vagrant (Windows, OS X, Linux)](INSTALL-Vagrant-trusty.md)
 * [Install PyBossa charm with local LXC container (Ubuntu only)](INSTALL-local-trusty.md)
 
-## TO DO:
-- [x] Charm for Precise
-- [x] Connect with HAProxy
-- [x] Submit charm to jujucharms.com when ready
-- [x] Connect with PostgreSQL charm
-- [ ] Connect with redis-master charm
-- [x] Use nginx internally
-- [x] Use supervisor for running pybossa
+## Known issues
+
+* Scaling of multiple PyBossa servers is currently not supported.
 
 ## Roadmap
 
