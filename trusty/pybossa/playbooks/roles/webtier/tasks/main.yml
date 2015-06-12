@@ -1,0 +1,93 @@
+---
+- name: install git
+  apt: name=git-core state=latest
+
+# PyBossa
+
+- name: install Python
+  apt: name={{item}} state=latest
+  with_items:
+    - python
+    - python-dev
+    - python-virtualenv
+    - python-setuptools
+    - python-pip
+
+- name: install PyBossa build requirements
+  apt: name={{item}} state=latest
+  with_items:
+    - build-essential
+    - libjpeg-dev
+    - libssl-dev
+    - swig
+
+- name: install DB binding libs
+  apt: name={{item}} state=latest
+  with_items:
+    - libpq-dev
+    - python-psycopg2
+
+# pgbouncer
+
+- name: install PostgreSQL client packages
+  apt: name={{item}} state=latest
+  with_items:
+    - postgresql-client-9.1
+    - postgresql-common
+    - pgbouncer
+
+# nginx
+
+- name: install nginx
+  apt: name=nginx state=latest
+
+# https://www.howtoforge.com/using-geoip-with-nginx-on-ubuntu-12.04
+
+- name: create geoip directory
+  file: path=/etc/nginx/geoip owner=root group=root state=directory
+
+- name: Get GeoIP.dat
+  get_url:
+    url=http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+    dest=/etc/nginx/geoip/GeoIP.dat.gz
+
+- name: Get GeoLiteCity.dat
+  get_url:
+    url=http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+    dest=/etc/nginx/geoip/GeoLiteCity.dat.gz
+
+- name: Extract GeoIP.dat
+  command: gzip -d -f GeoIP.dat.gz
+  args:
+    chdir: /etc/nginx/geoip
+  notify: restart nginx
+
+  # unarchive: src=/tmp/GeoIP.dat.gz dest=/etc/nginx/geoip copy=no
+
+- name: Extract GeoLiteCity.dat
+  command: gzip -d -f GeoLiteCity.dat.gz
+  args:
+    chdir: /etc/nginx/geoip
+  notify: restart nginx
+
+  # unarchive: src=/tmp/GeoLiteCity.dat.gz dest=/etc/nginx/geoip owner=root group=root copy=no
+
+- name: set somaxconn for start up
+  lineinfile:
+    dest=/etc/sysctl.conf
+    line="net.core.somaxconn = 2048"
+    insertafter=EOF
+
+- name: set somaxconn for session now
+  command: sysctl -w net.core.somaxconn=2048
+
+- name: start the nginx service
+  service: name=nginx state=started
+
+# supervisor
+
+- name: install Supervisor
+  apt: name=supervisor
+
+- name: start Supervisor service
+  service: name=supervisor state=started
