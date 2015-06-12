@@ -104,7 +104,7 @@ sudo ./natpybossa.sh 10.0.3.x
 which will map the Juju-GUI to your localhost's port 7000.
 
 You can now view PyBossa in your browser:  
-[https://localhost:7000](https://localhost:7000)
+[http://localhost:7000](http://localhost:7000)
 
 ### PostgreSQL
 
@@ -137,7 +137,7 @@ sudo ./natpybossa.sh 10.0.3.x
 ```
 which will map the HAProxy to your localhost's port 7001.  
 You can now view HAProxy in front of PyBossa in your browser:  
-[https://localhost:7001](https://localhost:7001)
+[http://localhost:7001](http://localhost:7001)
 
 ### sshuttle whole network mapping (optional)
 
