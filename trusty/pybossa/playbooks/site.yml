@@ -1,19 +1,2 @@
-- hosts: all
-  tasks:
-    - name: update apt cache
-      apt: update_cache=yes
-      tags:
-        - install
-
-    - name: install nginx
-      apt: name=nginx state=latest
-      tags:
-        - install
-        - network-relation-changed
-        - upgrade-charm
-        - config-changed
-
-    - name: remove nginx
-      apt: name=nginx state=absent
-      tags:
-        - stop
+---
+- include: webservers.yml
