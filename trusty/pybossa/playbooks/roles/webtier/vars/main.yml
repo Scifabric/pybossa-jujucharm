@@ -1,0 +1,4 @@
+---
+pybossa_user: "pybossa"
+pybossa_path: "/home/{{pybossa_user}}/pybossa"
+virtualenv_path: "{{pybossa_path}}/env"

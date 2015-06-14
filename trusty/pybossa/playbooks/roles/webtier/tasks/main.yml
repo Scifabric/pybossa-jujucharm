@@ -36,6 +36,22 @@
     - postgresql-common
     - pgbouncer
 
+- name: Overwrite pgbouncer init script for pid file directory creation
+  copy: src=pgbouncer dest=/etc/init.d/pgbouncer owner=root group=root mode=755
+
+# TODO: Set right IP in this template
+- name: copy pgbouncer.ini
+  template: src=pgbouncer.ini dest=/etc/pgbouncer/pgbouncer.ini owner=postgres group=postgres mode=640
+
+- name: copy pgbouncer userlist
+  template: src=userlist.txt dest=/etc/pgbouncer/userlist.txt owner=postgres group=postgres mode=640
+
+- name: set pgbouncer to enabled
+  lineinfile: dest=/etc/default/pgbouncer regexp=^START= line=START=1
+
+- name: start pgbouncer
+  service: name=pgbouncer state=started
+
 # nginx
 
 - name: install nginx
@@ -91,3 +107,127 @@
 
 - name: start Supervisor service
   service: name=supervisor state=started
+
+# add pybossa user
+
+- name: add pybossa group
+  group: name={{pybossa_user}}
+
+- name: add pybossa user
+  user: name={{pybossa_user}} group={{pybossa_user}} shell=/bin/bash
+
+- name: create .ssh directory
+  file: name=/home/pybossa/.ssh owner={{pybossa_user}} group={{pybossa_user}} mode=700 state=directory
+
+# TODO: Needed for crowdcrafting theme
+# - name: copy pyroboto private key
+#   copy: src=id_rsa dest=/home/{{pybossa_user}}/.ssh/id_rsa group={{pybossa_user}} owner={{pybossa_user}} mode=600
+
+# TODO: Needed for crowdcrafting theme
+# - name: add github known_hosts fingerprints globally (btw. without checking!)
+#   shell: ssh-keyscan -H github.com >> /etc/ssh/ssh_known_hosts
+#   args:
+#     creates: /etc/ssh/ssh_known_hosts
+
+# PyBossa itself
+
+- name: git pull PyBossa master branch
+  sudo_user: "{{pybossa_user}}"
+  git: repo=https://github.com/PyBossa/pybossa.git
+       dest=/home/{{pybossa_user}}/pybossa
+       version=master
+
+# TODO: Needed for crowdcrafting theme
+# - name: git pull Crowdcrafting theme
+#   sudo_user: "{{pybossa_user}}"
+#   git: repo=ssh://git@github.com/PyBossa/crowdcrafting-theme.git
+#        dest=/home/{{pybossa_user}}/pybossa/pybossa/themes/crowdcrafting-theme
+#        version=master
+
+- name: "upgrade pip itself"
+  sudo_user: "{{pybossa_user}}"
+  pip: name=pip state=latest chdir={{pybossa_path}} virtualenv={{virtualenv_path}} virtualenv_site_packages=no
+
+- name: "install PyBossa virtualenv packages, can take some time..."
+  sudo_user: "{{pybossa_user}}"
+  pip: chdir={{pybossa_path}} requirements={{pybossa_path}}/requirements.txt virtualenv={{virtualenv_path}} virtualenv_site_packages=no
+
+- name: install uwsgi
+  sudo_user: "{{pybossa_user}}"
+  pip: name=uwsgi chdir={{pybossa_path}} virtualenv={{virtualenv_path}} virtualenv_site_packages=no
+
+- name: install newrelic
+  sudo_user: "{{pybossa_user}}"
+  pip: name=newrelic chdir={{pybossa_path}} virtualenv={{virtualenv_path}} virtualenv_site_packages=no
+
+- name: create pybossa log directory
+  file: path=/var/log/pybossa owner=pybossa group=pybossa state=directory
+
+
+# TODO: temporary only
+
+- name: check alembic.ini existing
+  stat: path={{pybossa_path}}/alembic.ini
+  register: check_alembic
+
+- name: copy alembic template when not existing
+  command: cp -p {{pybossa_path}}/alembic.ini.template {{pybossa_path}}/alembic.ini
+  when: not check_alembic.stat.exists
+
+- name: check settings_local.py existing
+  stat: path={{pybossa_path}}/settings_local.py
+  register: check_settings
+
+- name: copy settings_local template when not existing
+  command: cp -p {{pybossa_path}}/settings_local.py.tmpl {{pybossa_path}}/settings_local.py
+  when: not check_settings.stat.exists
+
+# RQ worker
+
+- name: copy rq worker config
+  template: src=rq-worker.conf dest=/etc/supervisor/conf.d/rq-worker.conf owner=root group=root
+  notify: restart supervisor
+
+# configure nginx
+
+- name: copy nginx pybossa config
+  copy: src=pybossa dest=/etc/nginx/sites-available/pybossa owner=root group=root
+  notify: restart nginx
+
+- name: remove default nginx config
+  file: name=/etc/nginx/sites-enabled/default state=absent
+  notify: restart nginx
+
+- name: symlink nginx config
+  file: src=/etc/nginx/sites-available/pybossa dest=/etc/nginx/sites-enabled/pybossa owner=root group=root state=link
+  notify: restart nginx
+
+- name: copy pybossa.ini for uwsgi
+  copy: src=pybossa.ini dest=/home/pybossa/pybossa/pybossa.ini owner=pybossa group=pybossa
+
+- name: copy newrelic.ini for uwsgi
+  copy: src=newrelic.ini dest=/home/pybossa/pybossa/newrelic.ini owner=pybossa group=pybossa
+
+# copy supervisor pybossa service
+
+- name: copy supervisor pybossa.conf
+  copy: src=pybossa.conf dest=/etc/supervisor/conf.d/pybossa.conf owner=root group=root
+  notify: restart supervisor
+
+# configure pybossa itself
+
+- name: copy alembic.ini settings
+  template: src=alembic.ini dest=/home/pybossa/pybossa/alembic.ini owner=pybossa group=pybossa
+
+- name: copy settings_local.py settings
+  template: src=settings_local.py dest=/home/pybossa/pybossa/settings_local.py owner=pybossa group=pybossa
+  notify: restart supervisor
+
+# upgrade database
+
+# TODO: Needs to be done after database is live
+# - name: upgrade database
+#   sudo_user: "{{pybossa_user}}"
+#   command: "{{virtualenv_path}}/bin/alembic upgrade head"
+#   args:
+#     chdir: "{{pybossa_path}}"
