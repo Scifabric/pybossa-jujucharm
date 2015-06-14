@@ -120,11 +120,10 @@
 # - name: copy pyroboto private key
 #   copy: src=id_rsa dest=/home/{{pybossa_user}}/.ssh/id_rsa group={{pybossa_user}} owner={{pybossa_user}} mode=600
 
-# TODO: Needed for crowdcrafting theme
-# - name: add github known_hosts fingerprints globally (btw. without checking!)
-#   shell: ssh-keyscan -H github.com >> /etc/ssh/ssh_known_hosts
-#   args:
-#     creates: /etc/ssh/ssh_known_hosts
+- name: add github known_hosts fingerprints globally (btw. without checking!)
+  shell: ssh-keyscan -H github.com >> /etc/ssh/ssh_known_hosts
+  args:
+    creates: /etc/ssh/ssh_known_hosts
 
 # PyBossa itself
 
