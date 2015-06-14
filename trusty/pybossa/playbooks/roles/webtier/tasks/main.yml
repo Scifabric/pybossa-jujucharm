@@ -32,12 +32,9 @@
 - name: install PostgreSQL client packages
   apt: name={{item}} state=latest
   with_items:
-    - postgresql-client-9.1
+    - postgresql-client-9.3
     - postgresql-common
     - pgbouncer
-
-- name: Overwrite pgbouncer init script for pid file directory creation
-  copy: src=pgbouncer dest=/etc/init.d/pgbouncer owner=root group=root mode=755
 
 # TODO: Set right IP in this template
 - name: copy pgbouncer.ini
