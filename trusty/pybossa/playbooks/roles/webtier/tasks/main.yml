@@ -20,6 +20,7 @@
     - libjpeg-dev
     - libssl-dev
     - swig
+    - libffi-dev
 
 - name: install DB binding libs
   apt: name={{item}} state=latest
