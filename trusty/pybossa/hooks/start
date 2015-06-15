@@ -5,6 +5,10 @@ if [ -f ".psql" ]; then
   redis-server contrib/sentinel.conf --sentinel
   export PYBOSSA_REDIS_CACHE_DISABLED='1'
   supervisorctl restart pybossa || supervisorctl start pybossa
+  juju-log "Trying to (re)start rq-scheduler"
+  supervisorctl restart rq-scheduler || supervisorctl start rq-scheduler
+  juju-log "Trying to (re)start rq-worker"
+  supervisorctl restart rq-worker || supervisorctl start rq-worker
   juju-log "Pybossa should be running now on port 8080 (nginx) internally"
 else
   juju-log "No database set up yet, waiting."

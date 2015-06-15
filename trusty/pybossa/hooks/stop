@@ -1,2 +1,4 @@
 #!/bin/bash
 supervisorctl stop pybossa
+supervisorctl stop rq-scheduler
+supervisorctl stop rq-worker
