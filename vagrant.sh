@@ -3,12 +3,18 @@
 set -ex
 
 apt-get update -y
-apt-get install -y juju-local git-core python3-pip libyaml-cpp0.3-dev juju-quickstart
+apt-get install -y juju-local git-core python3-pip libyaml-cpp0.3-dev juju-deployer
 pip3 install juju-git-deploy
 
-NATGUI="/home/vagrant/natgui.sh"
-NATPYBOSSA="/home/vagrant/natpybossa.sh"
-NATHAPROXY="/home/vagrant/nathaproxy.sh"
+NATGUI="/usr/local/bin/natgui"
+NATPYBOSSA="/usr/local/bin/natpybossa"
+NATHAPROXY="/usr/local/bin/nathaproxy"
+
+# Set env for juju-deployer where to search at
+cat >> "/home/vagrant/.bashrc" <<'EOF'
+export JUJU_REPOSITORY=/vagrant
+cd /vagrant
+EOF
 
 # write files to provide NAT to LXC containers
 cat > "$NATGUI" <<'EOF'

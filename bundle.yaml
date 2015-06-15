@@ -1,4 +1,5 @@
 bundle:
+  series: trusty
   services: 
     postgresql: 
       charm: "cs:trusty/postgresql-19"
@@ -7,7 +8,7 @@ bundle:
         "gui-x": "437"
         "gui-y": "570.7050807568877"
     pybossa: 
-      charm: "local:trusty/pybossa-0"
+      charm: "pybossa"
       num_units: 1
       expose: true
       annotations: 
