@@ -5,7 +5,7 @@ set -xe
 # install dependencies
 juju-log "Install Ubuntu 14.04 packages"
 apt-get update
-apt-get install -y git-core python-virtualenv libpq-dev postgresql-client python-dev swig libssl-dev libpq-dev python-psycopg2 libjpeg-dev libffi-dev build-essential redis-server nginx supervisor
+apt-get install -y git-core python-virtualenv libpq-dev postgresql-client python-dev swig libssl-dev libjpeg-dev redis-server nginx supervisor libffi-dev
 # install pybossa itself
 juju-log "Clone PyBossa Git in /var/www directory"
 mkdir /var/www

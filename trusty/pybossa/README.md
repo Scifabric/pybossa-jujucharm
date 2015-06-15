@@ -47,15 +47,16 @@ http://10.0.3.89
 
 ## Scale out Usage
 
-TODO...
+Scaling of PyBossa is in this first version not supported.
 
 ## Known Limitations and Issues
 
-TODO...
+* Does not allow multi PyBossa server environments at the moment.
+* Redis is currently used inside the charm. The official Redis charm will be used on a later version.
 
 # Configuration
 
-TODO...
+There is no configuration needed at this time.
 
 # Contact Information
 
