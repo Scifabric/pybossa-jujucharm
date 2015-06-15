@@ -51,8 +51,8 @@ Scaling of PyBossa is in this first version not supported.
 
 ## Known Limitations and Issues
 
-* Does not allow multi PyBossa server environments at the moment.
-* Redis is currently used inside the charm. The official Redis charm will be used on a later version.
+* Redis is currently used inside the charm. The official Redis charm will be used on a later version. Main reason is the usage of Sentinel service.
+* Master slave DBs not yet supported.
 
 # Configuration
 

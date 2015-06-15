@@ -14,7 +14,7 @@ This is **alpha** software and currently only tested with LXC and Vagrant (Ubunt
 
 ## Known issues
 
-* Scaling of multiple PyBossa servers is currently not supported.
+* Master slave DBs are not yet supported in the charm
 
 ## Roadmap
 
