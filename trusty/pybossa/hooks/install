@@ -122,5 +122,19 @@ logfile=/var/log/rq-worker.log
 logfile_maxbytes=10MB
 logfile_backups=2
 EOF
+# write supervisor email simple server configuration
+cat > /etc/supervisor/conf.d/pybossa-email.conf<<EOF
+[program:rq-worker]
+command=python -m smtpd -c DebuggingServer localhost:25
+directory=/var/www/pybossa
+autostart=true
+autorestart=true
+user=root
+log_stdout=true
+log_stderr=true
+logfile=/var/log/email-server.log
+logfile_maxbytes=10MB
+logfile_backups=2
+EOF
 # restart supervisor
 /etc/init.d/supervisor restart
