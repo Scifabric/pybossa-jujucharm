@@ -124,7 +124,7 @@ logfile_backups=2
 EOF
 # write supervisor email simple server configuration
 cat > /etc/supervisor/conf.d/pybossa-email.conf<<EOF
-[program:rq-worker]
+[program:pybossa-email]
 command=python -m smtpd -c DebuggingServer localhost:25
 directory=/var/www/pybossa
 autostart=true
