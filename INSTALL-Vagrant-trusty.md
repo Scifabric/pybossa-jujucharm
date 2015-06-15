@@ -139,6 +139,16 @@ which will map the HAProxy to your localhost's port 7001.
 You can now view HAProxy in front of PyBossa in your browser:  
 [http://localhost:7001](http://localhost:7001)
 
+## Email configuration
+
+By default you don't need to setup an email server for PyBossa. However it's recommended. 
+
+The current setup only uses a testing server, so you can see how it works. 
+
+If you want to use email notifications, then configure an email server with all your running credentials (i.e. DKIM and SFP). You will need
+to modify the DNS entries of you domain, so that's why this is not covered in this installation guide.
+
+
 ### sshuttle whole network mapping (optional)
 
 This is an alternative for using the shell scripts used for NAT used above. You need to install sshuttle in Ubuntu with apt-get or in OS X with Homebrew.
