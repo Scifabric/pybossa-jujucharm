@@ -3,12 +3,18 @@
 set -ex
 
 apt-get update -y
-apt-get install -y juju-local git-core python3-pip libyaml-cpp0.3-dev
+apt-get install -y juju-local git-core python3-pip libyaml-cpp0.3-dev juju-deployer
 pip3 install juju-git-deploy
 
-NATGUI="/home/vagrant/natgui.sh"
-NATPYBOSSA="/home/vagrant/natpybossa.sh"
-NATHAPROXY="/home/vagrant/nathaproxy.sh"
+NATGUI="/usr/local/bin/natgui"
+NATPYBOSSA="/usr/local/bin/natpybossa"
+NATHAPROXY="/usr/local/bin/nathaproxy"
+
+# Set env for juju-deployer where to search at
+cat >> "/home/vagrant/.bashrc" <<'EOF'
+export JUJU_REPOSITORY=/vagrant
+cd /vagrant
+EOF
 
 # write files to provide NAT to LXC containers
 cat > "$NATGUI" <<'EOF'
@@ -47,7 +53,7 @@ else
       exit 1
     else
       # check if ip already forwarded
-      iptables-save | grep "$ip" &> /dev/null
+      iptables -t nat -L | grep "$ip":443 &> /dev/null
       if [ $? -eq 0 ] ; then
         echo Warning: IP is already forwarded. Showing only Juju password.
       else
@@ -104,9 +110,9 @@ else
       exit 1
     else
       # check if ip already forwarded
-      iptables-save | grep "$ip" &> /dev/null
+      iptables -t nat -L | grep "$ip":8080 &> /dev/null
       if [ $? -eq 0 ] ; then
-        echo Warning: IP is already forwarded. Showing only Juju password.
+        echo Warning: IP is already forwarded.
       else
         iptables -t nat -A PREROUTING -p tcp --dport 7000 -j DNAT --to-destination "$ip":8080
         if [ $? -eq 0 ] ; then
@@ -158,9 +164,9 @@ else
       exit 1
     else
       # check if ip already forwarded
-      iptables-save | grep "$ip" &> /dev/null
+      iptables -t nat -L | grep "$ip":80 &> /dev/null
       if [ $? -eq 0 ] ; then
-        echo Warning: IP is already forwarded. Showing only Juju password.
+        echo Warning: IP is already forwarded.
       else
         iptables -t nat -A PREROUTING -p tcp --dport 7001 -j DNAT --to-destination "$ip":80
         if [ $? -eq 0 ] ; then

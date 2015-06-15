@@ -74,7 +74,7 @@ juju status
 ```
 copy&paste the IP here:
 ```
-sudo ./natgui.sh 10.0.3.x
+sudo natgui 10.0.3.x
 ```
 which will map the Juju-GUI to your localhost's port 8000. 
 
@@ -99,7 +99,7 @@ juju status
 ```
 copy&paste the IP here:
 ```
-sudo ./natpybossa.sh 10.0.3.x
+sudo natpybossa 10.0.3.x
 ```
 which will map the Juju-GUI to your localhost's port 7000.
 
@@ -133,7 +133,7 @@ juju status
 ```
 copy&paste the IP here:
 ```
-sudo ./natpybossa.sh 10.0.3.x
+sudo natpybossa 10.0.3.x
 ```
 which will map the HAProxy to your localhost's port 7001.  
 You can now view HAProxy in front of PyBossa in your browser:  
