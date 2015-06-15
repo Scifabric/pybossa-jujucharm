@@ -92,5 +92,49 @@ logfile=/var/log/pybossa.log
 logfile_maxbytes=10MB
 logfile_backups=2
 EOF
+# write supervisor scheduler configuration
+cat > /etc/supervisor/conf.d/rq-scheduler.conf<<EOF
+[program:rq-scheduler]
+command=/usr/local/bin/rqscheduler 
+directory=/var/www/pybossa
+autostart=true
+autorestart=true
+priority=998
+user=root
+log_stdout=true
+log_stderr=true
+logfile=/var/log/rq-scheduler.log
+logfile_maxbytes=10MB
+logfile_backups=2
+EOF
+# write supervisor worker configuration
+cat > /etc/supervisor/conf.d/rq-worker.conf<<EOF
+[program:rq-worker]
+command=python app_context_rqworker.py scheduled_jobs super high medium low quaterly
+directory=/var/www/pybossa
+autostart=true
+autorestart=true
+priority=997
+user=root
+log_stdout=true
+log_stderr=true
+logfile=/var/log/rq-worker.log
+logfile_maxbytes=10MB
+logfile_backups=2
+EOF
+# write supervisor email simple server configuration
+cat > /etc/supervisor/conf.d/pybossa-email.conf<<EOF
+[program:pybossa-email]
+command=python -m smtpd -c DebuggingServer localhost:25
+directory=/var/www/pybossa
+autostart=true
+autorestart=true
+user=root
+log_stdout=true
+log_stderr=true
+logfile=/var/log/email-server.log
+logfile_maxbytes=10MB
+logfile_backups=2
+EOF
 # restart supervisor
 /etc/init.d/supervisor restart
