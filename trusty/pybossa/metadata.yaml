@@ -18,3 +18,5 @@ provides:
 requires:
   pgsql:
     interface: pgsql
+  redis-sentinel:
+    interface: redis
