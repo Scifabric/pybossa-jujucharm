@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -ux
+
+MY_HOSTNAME=`relation-get hostname`
+MY_PORT=`relation-get port`
+
+sed -i.bak -e "s/SENTINEL.*/SENTINEL [('${MY_HOSTNAME}', ${MY_PORT})]/" /var/www/pybossa/settings_local.py
