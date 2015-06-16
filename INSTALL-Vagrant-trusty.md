@@ -114,6 +114,49 @@ juju deploy postgresql
 juju add-relation pybossa postgresql:db-admin
 ```
 
+## Redis and Sentinel (optional)
+
+First you need to deploy at least two nodes of Redis: a master and a slave:
+
+```
+juju deploy cs:~juju-gui/trusty/redis-1
+juju deploy cs:~juju-gui/trusty/redis-1 redis2
+```
+
+Then, you need link them:
+
+```
+juju add-relation redis:master redis2:slave
+```
+
+Now you can add the Sentinel:
+
+```
+juju git-deploy PyBossa/redis-sentinel-jujucharm
+```
+
+**NOTE**: If you don't have the git-deploy command for juju, you can install it with these commands:
+
+```
+sudo apt-get install python3-pip
+sudo pip install juju-git-deploy
+```
+
+And monitor Redis master:
+
+```
+juju add-relation redis-sentinel redis:master
+```
+
+Finally, you can link PyBossa to sentinel:
+
+```
+juju add-relation pybossa redis-sentinel
+```
+
+
+
+
 ### HAProxy (optional)
 
 HAProxy is a load balancer and necessary once more than one running PyBossa
