@@ -3,7 +3,7 @@ pybossa-jujucharm
 
 Juju Charm for PyBossa
 
-![PyBossa Charm](http://i.imgur.com/Hqeryrw.png)
+![PyBossa Charm](http://i.imgur.com/XraGePO.png)
 
 ## Install instructions
 
@@ -21,12 +21,12 @@ We will duplicate our production environment which is visible on
 and more than one PyBossa instance for instant production deployment based on
 Juju and the cloud. More connections to other charms will follow!
 
-PyBossa with PostgreSQL and HAProxy connection:
+### PyBossa with PostgreSQL and HAProxy connection:
 
 ![Example of PostgreSQL,PyBossa,HAProxy](http://i.imgur.com/FqqX3bB.png)
 
-PyBossa with PostgresSQL, HAProxy, Redis and Sentinel:
-![Example of PostgreSQL,PyBossa,HAProxy, Redis, Sentinel](http://i.imgur.com/Hqeryrw.png)
+### PyBossa with PostgresSQL, HAProxy, Redis and Sentinel:
+![Example of PostgreSQL,PyBossa,HAProxy, Redis, Sentinel](http://i.imgur.com/XraGePO.png)
 
 ## Copyright / License
 
