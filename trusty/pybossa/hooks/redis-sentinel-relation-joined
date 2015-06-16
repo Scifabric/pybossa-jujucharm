@@ -4,4 +4,4 @@ set -ux
 
 MY_HOSTNAME=`relation-get hostname`
 
-sed -i.bak -e "s/SENTINEL.*/SENTINEL [('${MY_HOSTNAME}', 6379)]/" /var/www/pybossa/settings_local.py
+sed -i.bak -e "s/SENTINEL.*/SENTINEL = [('${MY_HOSTNAME}', 26379)]/" /var/www/pybossa/settings_local.py
