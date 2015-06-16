@@ -1,0 +1,17 @@
+---
+- hosts: all
+  roles:
+    - role: common
+      tags:
+        - install
+        - network-relation-changed
+        - upgrade-charm
+        - config-changed
+
+    - role: webtier
+      tags:
+        - install
+        - network-relation-changed
+        - upgrade-charm
+        - config-changed
+        - stop
