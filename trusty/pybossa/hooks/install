@@ -19,8 +19,6 @@ cp settings_local.py.tmpl settings_local.py
 cp alembic.ini.template alembic.ini
 juju-log "Install requirements for letting run PyBossa as a service"
 pip install uwsgi
-# change max connections
-sysctl -w net.core.somaxconn=2048
 # write uwsgi configuration
 cat > /var/www/pybossa/pybossa.ini <<EOF
 [uwsgi]
@@ -32,7 +30,6 @@ module = run:app
 cpu-affinity = 1
 processes = 2
 threads = 2
-listen = 2048
 stats = /tmp/pybossa-stats.sock
 buffer-size = 65535
 EOF
