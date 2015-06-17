@@ -48,38 +48,12 @@ SSH to the Vagrant box and **stay** in the VM
 vagrant ssh
 ```
 
-Prepare Juju for initial usage:
-```
-juju init
-juju switch local
-juju bootstrap
-```
-> Explanation of the commands:
-> * Generate config files for Juju
-> * Switch Juju to local usage (LXC)
-> * Bootstrap Juju so that it is ready to use
-
 ### Juju GUI (optional)
 
-```
-juju deploy juju-gui
-```
+You can reach Juju GUI on IP:
+http://127.0.0.1:6079
 
-> This will setup a new Linux container (LXC) with its own network and resources.
-> So you can say this will make a VM in a VM ;)
-
-wait till juju-gui is deployed and you see a public IP (can take some time):
-```
-juju status
-```
-copy&paste the IP here:
-```
-sudo natgui 10.0.3.x
-```
-which will map the Juju-GUI to your localhost's port 8000. 
-
-You can now view Juju-GUI in your browser:  
-[https://localhost:8000](https://localhost:8000)
+> The password for the GUI should be visible after `vagrant ssh`
 
 ### PyBossa
 
@@ -153,8 +127,6 @@ Finally, you can link PyBossa to sentinel:
 ```
 juju add-relation pybossa redis-sentinel
 ```
-
-
 
 
 ### HAProxy (optional)
